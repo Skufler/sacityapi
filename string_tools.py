@@ -1,25 +1,21 @@
 # -*- coding: utf-8 -*-
-sensor_list = ['Lum', 'Vib', 'Gas', 'Brg', 'Tmr', 'Wet', 'Wat', 'Prk']
+sensor_list = ['luminosity', 'vibration', 'gas', 'bridge', 'temperature', 'wetness', 'water', 'parking']
 
 test_json = '[ ' \
-            '{ "name" : "Lum", "data" : null },' \
-            '{ "name" : "Vib", "data" : null },' \
-            '{ "name" : "Gas", "data" : null },' \
-            '{ "name" : "Brg", "data" : null },' \
-            '{ "name" : "Tmr", "data" : null },' \
-            '{ "name" : "Wet", "data" : null },' \
-            '{ "name" : "Wat", "data" : null },' \
-            '{ "name" : "Prk", "data" : null } ]'
-
-
-def serialize_json(string):
-    return str(string).strip("'<>() ").replace('\'', '\"')
+            '{ "id" : 0, "name" : "luminosity", "data" : null },' \
+            '{ "id" : 1, "name" : "vibration", "data" : null },' \
+            '{ "id" : 2, "name" : "gas", "data" : null },' \
+            '{ "id" : 3, "name" : "bridge", "data" : null },' \
+            '{ "id" : 4, "name" : "temperature", "data" : null },' \
+            '{ "id" : 5, "name" : "wetness", "data" : null },' \
+            '{ "id" : 6, "name" : "water", "data" : null },' \
+            '{ "id" : 7, "name" : "parking", "data" : null } ]'
 
 
 def init_base_json():
     base = '[ '
-    for i in sensor_list:
-        base = base + "{{ \"name\" : \"{_name}\", \"data\" : 11 }},".format(_name=i,)
+    for i, j in enumerate(sensor_list):
+        base = base + "{{ \"id\" : {id}, \"name\" : \"{name}\", \"data\" : null }},".format(id=i, name=j)
 
     base = base[:-1]
     base = base + ' ]'
