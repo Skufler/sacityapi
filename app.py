@@ -11,7 +11,9 @@ import serial.tools.list_ports
 from string_tools import init_base_json
 
 app = Flask(__name__)
-open_bridge = False
+# 1 - open
+# 0 - closed
+bridge_state = False
 
 
 def get_data_from_port():
@@ -34,19 +36,37 @@ def get_data_from_port():
     return sensor_data if sensor_data is not None else base_json
 
 
+def send_data_to_port(data, sensor):
+    pass
+
+
 @app.route('/get/list', methods=['GET'])
 def get_sensor_list():
-    return jsonify(get_data_from_port())
+    # get_data_from_port()
+    return get_data_from_port()
 
 
 @app.route('/get/<int:_id>', methods=['GET'])
 def get_sensor_by_id(_id):
     try:
-        return jsonify(get_data_from_port()[int(_id)])
+        return get_data_from_port()[int(_id)]
     except (TypeError, IndexError):
         return abort(404)
 
 
+@app.route('/bridge/open', methods=['GET'])
+def open_bridge():
+    if bridge_state:
+        return
+    else:
+        pass
+
+
+@app.route('/bridge/close', methods=['GET'])
+def close_bridge():
+    pass
+
+
 if __name__ == '__main__':
     base_json = init_base_json()
-    app.run(host='0.0.0.0', port=80, threaded=True)
+    app.run()
